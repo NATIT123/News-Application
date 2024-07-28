@@ -10,7 +10,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -19,7 +18,7 @@ interface ApiService {
     companion object {
         private val gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
 
-        val apiService by lazy {
+        val apiService: ApiService by lazy {
             val logging = HttpLoggingInterceptor()
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder().addInterceptor(logging).build()
@@ -43,7 +42,7 @@ interface ApiService {
     @GET("everything")
     fun searchEverything(
         @Query("q") key: String,
-        @Query("from") from: String = "2024-06-12",
+        @Query("from") from: String = "2024-06-27",
         @Query("sortBy") sortBy: String = "publishedAt",
         @Query("apiKey") apiKey: String = API_KEY
     ): Call<NewsResponse>
